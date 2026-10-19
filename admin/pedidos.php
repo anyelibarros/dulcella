@@ -7,12 +7,24 @@ requiereAdmin();
 $tituloPagina = 'Bandeja de pedidos';
 
 $pedidos = $mysqli->query(
-    'SELECT pe.*, pr.nombre AS producto, pr.precio, pr.foto_url, c.nombre AS categoria
-     FROM pedido pe
-     INNER JOIN producto pr ON pr.id_producto = pe.id_producto
-     INNER JOIN categoria c ON c.id_categoria = pr.id_categoria
-     ORDER BY pe.fecha DESC, pe.id_pedido DESC'
+    'SELECT * FROM pedido ORDER BY fecha DESC, id_pedido DESC'
 )->fetch_all(MYSQLI_ASSOC);
+
+$detallesPorPedido = [];
+if ($pedidos) {
+    $detalles = $mysqli->query(
+        'SELECT d.id_pedido, d.cantidad, d.precio_unitario,
+                pr.nombre AS producto, c.nombre AS categoria
+         FROM pedido_detalle d
+         INNER JOIN producto pr ON pr.id_producto = d.id_producto
+         INNER JOIN categoria c ON c.id_categoria = pr.id_categoria
+         ORDER BY d.id_detalle'
+    )->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($detalles as $d) {
+        $detallesPorPedido[(int) $d['id_pedido']][] = $d;
+    }
+}
 
 require __DIR__ . '/../includes/header_admin.php';
 ?>
@@ -36,10 +48,13 @@ require __DIR__ . '/../includes/header_admin.php';
           <span><?= e(date('d/m/Y', strtotime($pe['fecha']))) ?></span>
         </div>
         <p>Tel: <?= e($pe['telefono_cliente']) ?> · <?= e($pe['direccion_entrega']) ?></p>
-        <p class="producto-linea">
-          <?= e($pe['producto']) ?> — <?= formatearPrecio($pe['precio']) ?>
-          <span style="color:var(--muted);font-weight:600;"> · <?= e($pe['categoria']) ?></span>
-        </p>
+        <?php foreach ($detallesPorPedido[(int) $pe['id_pedido']] ?? [] as $d): ?>
+          <p class="producto-linea">
+            <?= e($d['producto']) ?> × <?= (int) $d['cantidad'] ?> — <?= formatearPrecio((float) $d['precio_unitario'] * (int) $d['cantidad']) ?>
+            <span style="color:var(--muted);font-weight:600;"> · <?= e($d['categoria']) ?> (<?= formatearPrecio($d['precio_unitario']) ?> c/u)</span>
+          </p>
+        <?php endforeach; ?>
+        <p class="producto-linea">Total: <?= formatearPrecio($pe['total']) ?></p>
       </article>
     <?php endforeach; ?>
   </div>

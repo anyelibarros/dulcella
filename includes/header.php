@@ -27,6 +27,7 @@ $flash = obtenerMensaje();
   <nav class="nav-principal">
     <a href="<?= e($homePath ?? 'index.php') ?>">Inicio</a>
     <a href="<?= e($catalogoPath ?? 'catalogo.php') ?>">Menú</a>
+    <a href="<?= e($carritoPath ?? 'carrito.php') ?>">Carrito<?php $nCarrito = carritoCantidadTotal(); ?><?= $nCarrito > 0 ? ' (' . $nCarrito . ')' : '' ?></a>
     <a href="<?= e($pedidoPath ?? 'pedido.php') ?>">Pedir</a>
     <a class="link-admin" href="<?= e($adminPath ?? 'admin/login.php') ?>">Admin</a>
   </nav>

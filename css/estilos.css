@@ -465,6 +465,56 @@ a { color: inherit; text-decoration: none; }
 .producto-resumen strong { display: block; color: var(--choco); font-size: 1.05rem; }
 .producto-resumen em { color: var(--rosa-fuerte); font-style: normal; font-weight: 800; }
 
+/* ——— Carrito ——— */
+.card-acciones form { display: flex; flex: 1 1 auto; }
+.card-acciones form .btn { width: 100%; }
+.panel-carrito { max-width: 720px; }
+.carrito-lista { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
+.carrito-item {
+  display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center;
+  background: linear-gradient(135deg, var(--rosa-blush), #fff);
+  border: 1px solid rgba(232, 122, 166, 0.35);
+  border-radius: 16px; padding: 0.8rem;
+}
+.carrito-item img {
+  width: 64px; height: 64px; border-radius: 12px; object-fit: cover; flex-shrink: 0;
+  border: 2px solid #fff;
+}
+.carrito-info { display: flex; flex-direction: column; flex: 1 1 160px; min-width: 0; }
+.carrito-info strong { color: var(--choco); }
+.carrito-info span { color: var(--muted); font-size: 0.88rem; }
+.carrito-info .carrito-subtotal { color: var(--rosa-fuerte); font-weight: 800; }
+.carrito-cantidad { font-size: 0.8rem; font-weight: 700; color: var(--choco-medio); }
+.carrito-cantidad input {
+  width: 76px; display: block; margin-top: 0.25rem;
+  padding: 0.55rem 0.6rem; border-radius: 10px;
+  border: 1.5px solid rgba(106, 63, 82, 0.18); font: inherit; min-height: 44px;
+}
+.carrito-acciones { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.carrito-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.9rem 0.2rem; border-top: 2px dashed rgba(212, 90, 138, 0.35);
+  font-size: 1.05rem;
+}
+.carrito-total strong { font-family: "Fraunces", serif; font-size: 1.45rem; color: var(--rosa-fuerte); }
+.carrito-agregar { margin-top: 1.6rem; border-top: 1px solid #f5e0ea; padding-top: 1.1rem; }
+.carrito-agregar h2 { color: var(--choco); font-size: 1.25rem; }
+.resumen-carrito {
+  background: linear-gradient(135deg, var(--rosa-blush), var(--rosa-niebla));
+  border: 1px solid rgba(232, 122, 166, 0.35);
+  border-radius: 16px; padding: 0.9rem 1rem; margin: 0.9rem 0 1.1rem;
+}
+.resumen-linea {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: 0.35rem 0; color: var(--choco);
+}
+.resumen-linea em { color: var(--muted); font-style: normal; font-weight: 700; }
+.resumen-total {
+  border-top: 1px dashed rgba(106, 63, 82, 0.35); margin-top: 0.4rem; padding-top: 0.6rem;
+  font-size: 1.08rem;
+}
+.resumen-total strong { color: var(--rosa-fuerte); font-family: "Fraunces", serif; }
+
 .vacio {
   text-align: center; padding: 2.5rem 1rem; color: var(--muted);
   background: rgba(255,255,255,0.75); border-radius: var(--radio);

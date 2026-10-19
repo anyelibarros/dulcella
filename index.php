@@ -22,7 +22,7 @@ require __DIR__ . '/includes/header.php';
     <img class="brand-mark" src="img/logo.jpg" alt="Logo Dulcella">
     <h1 class="hero-brand">Dulcella</h1>
     <p class="slogan">"Dulzura artesanal en cada pedido."</p>
-    <p class="lead">Postres y bebidas en cacao y rosa. Elige categoría, elige un dulce, pide.</p>
+    <p class="lead">Postres y bebidas en cacao y rosa. Elige categoría, arma tu carrito con varios dulces y pide.</p>
     <div class="hero-cta">
       <a class="btn btn-rosa" href="#categorias">Ver categorías</a>
       <a class="btn btn-ghost" href="catalogo.php">Menú completo</a>
@@ -32,7 +32,7 @@ require __DIR__ . '/includes/header.php';
 
 <section id="categorias" class="anim-rise-2">
   <h2 class="seccion-titulo">Elige tu antojo</h2>
-  <p class="seccion-sub">Categoría → producto → un pedido. Así de simple.</p>
+  <p class="seccion-sub">Categoría → productos → carrito → un solo pedido con todo. Así de simple.</p>
 
   <?php if (!$categorias): ?>
     <div class="vacio">Aún no hay categorías. El administrador debe registrarlas.</div>

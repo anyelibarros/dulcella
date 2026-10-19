@@ -19,6 +19,7 @@ require __DIR__ . '/includes/header.php';
     <a class="btn btn-wa" href="<?= e($wa) ?>" target="_blank" rel="noopener">Abrir WhatsApp</a>
   <?php endif; ?>
   <p style="margin-top:1.1rem;">
+    <a class="btn btn-outline" href="catalogo.php">Seguir viendo el menú</a>
     <a class="btn btn-outline" href="index.php">Volver al inicio</a>
   </p>
 </div>

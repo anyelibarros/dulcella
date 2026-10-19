@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($accion === 'eliminar' && $id > 0) {
-        $check = $mysqli->prepare('SELECT COUNT(*) AS c FROM pedido WHERE id_producto = ?');
+        $check = $mysqli->prepare('SELECT COUNT(*) AS c FROM pedido_detalle WHERE id_producto = ?');
         $check->bind_param('i', $id);
         $check->execute();
         if ((int) $check->get_result()->fetch_assoc()['c'] > 0) {

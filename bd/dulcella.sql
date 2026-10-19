@@ -4,6 +4,7 @@ CREATE DATABASE IF NOT EXISTS dulcella
 
 USE dulcella;
 
+DROP TABLE IF EXISTS pedido_detalle;
 DROP TABLE IF EXISTS pedido;
 DROP TABLE IF EXISTS producto;
 DROP TABLE IF EXISTS categoria;
@@ -38,8 +39,18 @@ CREATE TABLE pedido (
   telefono_cliente VARCHAR(20) NOT NULL,
   direccion_entrega VARCHAR(255) NOT NULL,
   fecha DATE NOT NULL,
+  total DECIMAL(10,2) NOT NULL DEFAULT 0.00
+) ENGINE=InnoDB;
+
+CREATE TABLE pedido_detalle (
+  id_detalle INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id_pedido INT UNSIGNED NOT NULL,
   id_producto INT UNSIGNED NOT NULL,
-  FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
+  cantidad SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+  precio_unitario DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido) ON DELETE CASCADE,
+  FOREIGN KEY (id_producto) REFERENCES producto(id_producto),
+  UNIQUE KEY uk_pedido_producto (id_pedido, id_producto)
 ) ENGINE=InnoDB;
 
 -- Demo: admin@demo.com / Admin123!
@@ -86,16 +97,30 @@ INSERT INTO producto (nombre, precio, descripcion, disponible, foto_url, id_cate
 ('Smoothie de fresa', 10500.00, 'Fresas, yogurt y un toque de miel.', 1, 'img/bebidas/smoothie-fresa.jpg', 5),
 ('Chocolate caliente rosa', 11500.00, 'Cacao belga, leche cremosa y espuma rosa.', 0, 'img/bebidas/chocolate-caliente.jpg', 5);
 
-INSERT INTO pedido (nombre_cliente, telefono_cliente, direccion_entrega, fecha, id_producto) VALUES
-('Ana Pérez', '3001112233', 'Calle 10 # 5-20, Chapinero', CURDATE(), 5),
-('Carlos Gómez', '3012223344', 'Carrera 7 # 45-12', CURDATE(), 10),
-('Laura Ruiz', '3023334455', 'Av. Suba # 100-30', DATE_SUB(CURDATE(), INTERVAL 1 DAY), 14),
-('María Fernanda López', '3104445566', 'Calle 85 # 12-40', DATE_SUB(CURDATE(), INTERVAL 1 DAY), 7),
-('Andrés Castillo', '3115556677', 'Cra. 15 # 93-20', DATE_SUB(CURDATE(), INTERVAL 2 DAY), 18),
-('Valentina Mora', '3126667788', 'Calle 116 # 7-50', DATE_SUB(CURDATE(), INTERVAL 2 DAY), 11),
-('Diego Herrera', '3137778899', 'Av. El Dorado # 68-90', DATE_SUB(CURDATE(), INTERVAL 3 DAY), 6),
-('Camila Soto', '3148889900', 'Calle 53 # 10-15', DATE_SUB(CURDATE(), INTERVAL 3 DAY), 15),
-('Julián Pardo', '3159990011', 'Carrera 11 # 70-22', DATE_SUB(CURDATE(), INTERVAL 4 DAY), 19),
-('Sofía Méndez', '3201112233', 'Calle 26 # 4-18', DATE_SUB(CURDATE(), INTERVAL 5 DAY), 3),
-('Ricardo Núñez', '3212223344', 'Cra. 50 # 80-10', DATE_SUB(CURDATE(), INTERVAL 5 DAY), 12),
-('Elena Vargas', '3223334455', 'Calle 72 # 9-33', DATE_SUB(CURDATE(), INTERVAL 6 DAY), 8);
+INSERT INTO pedido (nombre_cliente, telefono_cliente, direccion_entrega, fecha, total) VALUES
+('Ana Pérez', '3001112233', 'Calle 10 # 5-20, Chapinero', CURDATE(), 37000.00),
+('Carlos Gómez', '3012223344', 'Carrera 7 # 45-12', CURDATE(), 16000.00),
+('Laura Ruiz', '3023334455', 'Av. Suba # 100-30', DATE_SUB(CURDATE(), INTERVAL 1 DAY), 34000.00),
+('María Fernanda López', '3104445566', 'Calle 85 # 12-40', DATE_SUB(CURDATE(), INTERVAL 1 DAY), 14000.00),
+('Andrés Castillo', '3115556677', 'Cra. 15 # 93-20', DATE_SUB(CURDATE(), INTERVAL 2 DAY), 11000.00),
+('Valentina Mora', '3126667788', 'Calle 116 # 7-50', DATE_SUB(CURDATE(), INTERVAL 2 DAY), 19000.00),
+('Diego Herrera', '3137778899', 'Av. El Dorado # 68-90', DATE_SUB(CURDATE(), INTERVAL 3 DAY), 18000.00),
+('Camila Soto', '3148889900', 'Calle 53 # 10-15', DATE_SUB(CURDATE(), INTERVAL 3 DAY), 17000.00),
+('Julián Pardo', '3159990011', 'Carrera 11 # 70-22', DATE_SUB(CURDATE(), INTERVAL 4 DAY), 9000.00),
+('Sofía Méndez', '3201112233', 'Calle 26 # 4-18', DATE_SUB(CURDATE(), INTERVAL 5 DAY), 13500.00),
+('Ricardo Núñez', '3212223344', 'Cra. 50 # 80-10', DATE_SUB(CURDATE(), INTERVAL 5 DAY), 12500.00),
+('Elena Vargas', '3223334455', 'Calle 72 # 9-33', DATE_SUB(CURDATE(), INTERVAL 6 DAY), 13000.00);
+
+INSERT INTO pedido_detalle (id_pedido, id_producto, cantidad, precio_unitario) VALUES
+(1, 5, 1, 28000.00), (1, 19, 1, 9000.00),
+(2, 10, 1, 16000.00),
+(3, 14, 1, 13000.00), (3, 21, 2, 10500.00),
+(4, 7, 1, 14000.00),
+(5, 18, 1, 11000.00),
+(6, 11, 1, 19000.00),
+(7, 6, 1, 18000.00),
+(8, 15, 1, 17000.00),
+(9, 19, 1, 9000.00),
+(10, 3, 1, 13500.00),
+(11, 12, 1, 12500.00),
+(12, 8, 1, 13000.00);

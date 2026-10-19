@@ -54,11 +54,13 @@ require __DIR__ . '/includes/header.php';
   <span>→</span>
   <span class="actual"><?= $catNombre !== '' ? e($catNombre) : 'Menú' ?></span>
   <span>→</span>
+  <span>Carrito</span>
+  <span>→</span>
   <span>Pedido</span>
 </nav>
 
 <h1 class="seccion-titulo anim-rise">Menú Dulcella</h1>
-<p class="seccion-sub anim-rise-2">Toca un dulce y pide uno solo. Coordinamos la entrega por WhatsApp.</p>
+<p class="seccion-sub anim-rise-2">Agrega todos los dulces que quieras al carrito y pide en una sola orden. Coordinamos la entrega por WhatsApp.</p>
 
 <?php if ($catNombre !== ''): ?>
   <div class="filtro-activo">Viendo: <?= e($catNombre) ?> · <a href="catalogo.php">Ver todas</a></div>
@@ -96,7 +98,18 @@ require __DIR__ . '/includes/header.php';
           <div class="precio"><?= formatearPrecio($p['precio']) ?></div>
           <p><?= e($p['descripcion'] ?: $p['categoria']) ?></p>
           <div class="card-acciones">
-            <a class="btn btn-rosa btn-sm" href="pedido.php?producto=<?= (int) $p['id_producto'] ?>">Pedir este</a>
+            <form method="post" action="carrito.php">
+              <input type="hidden" name="accion" value="agregar">
+              <input type="hidden" name="id_producto" value="<?= (int) $p['id_producto'] ?>">
+              <input type="hidden" name="volver" value="catalogo.php<?= $_SERVER['QUERY_STRING'] ? '?' . e($_SERVER['QUERY_STRING']) : '' ?>">
+              <button class="btn btn-rosa btn-sm" type="submit">Agregar al carrito</button>
+            </form>
+            <form method="post" action="carrito.php">
+              <input type="hidden" name="accion" value="agregar">
+              <input type="hidden" name="destino" value="carrito">
+              <input type="hidden" name="id_producto" value="<?= (int) $p['id_producto'] ?>">
+              <button class="btn btn-choco btn-sm" type="submit">Pedir ya</button>
+            </form>
             <a class="btn btn-wa btn-sm" href="<?= e(enlaceWhatsApp($msgWa)) ?>" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>

@@ -1,6 +1,6 @@
 # Dulcella
 
-Menú digital artesanal de postres y bebidas (chocolate + rosa) + pedido de un producto + panel admin.
+Menú digital artesanal de postres y bebidas (chocolate + rosa) + carrito con varios productos por pedido + panel admin. Confirmación por WhatsApp al número oficial de la asesora.
 
 ## Instalación
 
@@ -12,6 +12,7 @@ Menú digital artesanal de postres y bebidas (chocolate + rosa) + pedido de un p
 
 - Público: http://localhost/dulcella/
 - Menú: http://localhost/dulcella/menu.php (alias de `catalogo.php`)
+- Carrito: http://localhost/dulcella/carrito.php
 - Pedido: http://localhost/dulcella/pedido.php
 - Admin: http://localhost/dulcella/admin/login.php
 
@@ -30,10 +31,11 @@ O en phpMyAdmin: Importar → `bd/dulcella.sql`.
 
 ## Flujo UX
 
-1. **Inicio** → elige categoría  
-2. **Menú** → elige producto  
-3. **Pedido** → un solo ítem + datos de entrega  
-4. **Admin** → bandeja de pedidos
+1. **Inicio** → elige categoría
+2. **Menú** → «Agregar al carrito» en los postres que quieras (o «Pedir ya» para ir directo al carrito)
+3. **Carrito** → ajusta cantidades, agrega otros postres o quita ítems; ves el total
+4. **Pedido** → confirma el resumen (varios productos) + datos de entrega → botón de WhatsApp a la asesora
+5. **Admin** → bandeja de pedidos con el detalle por ítem y el total de cada orden
 
 ## Stack
 
